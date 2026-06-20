@@ -12,6 +12,9 @@ lld/
 ├── solid/              — SOLID Principles (the foundation)
 ├── decorator/          — Decorator Pattern (structural)
 ├── observer/           — Observer Pattern (behavioral)
+├── state/              — State Pattern (behavioral)
+├── facade/             — Facade Pattern (structural)
+├── logging_framework/  — LLD: Logging Framework (interview system design)
 └── README.md           — This file
 ```
 
@@ -60,12 +63,34 @@ Behavioral pattern: one-to-many dependency where subjects notify observers of st
 
 ---
 
+### 4. Logging Framework LLD — `logging_framework/`
+
+Classic Google/Amazon LLD interview question. Implements a Log4j-style logging framework from scratch.
+
+**Patterns:** Singleton, Builder, Strategy, Chain of Responsibility, Observer, Decorator  
+**SOLID:** All 5 principles demonstrated across all classes
+
+| File | Level | Focus |
+|---|---|---|
+| [00_Theory_and_Design.md](logging_framework/00_Theory_and_Design.md) | Theory | UML, patterns map, trade-off scripts, clarifying questions |
+| [01_Core_Types.java](logging_framework/01_Core_Types.java) | Core | `LogLevel` enum, `LogRecord` (immutable + Builder) |
+| [02_Interfaces.java](logging_framework/02_Interfaces.java) | Core | `LogFormatter`, `LogFilter`, `LogAppender` interfaces (ISP) |
+| [03_Formatters.java](logging_framework/03_Formatters.java) | Strategy | `SimpleFormatter`, `PatternFormatter`, `JsonFormatter` |
+| [04_Filters.java](logging_framework/04_Filters.java) | Chain | `LevelFilter`, `RegexFilter`, `CompositeFilter`, `ThresholdFilter` |
+| [05_Appenders.java](logging_framework/05_Appenders.java) | Observer/Decorator | `ConsoleAppender`, `FileAppender`, `AsyncAppender` |
+| [06_Logger.java](logging_framework/06_Logger.java) | Core | `Logger` + `Logger.Builder` — gate → filter → fan-out pipeline |
+| [07_LogManager.java](logging_framework/07_LogManager.java) | Singleton | `LogManager` — double-checked locking, ConcurrentHashMap registry |
+| [08_Demo.java](logging_framework/08_Demo.java) | Demo | 8 end-to-end scenarios wiring all components together |
+
+---
+
 ## 🗺️ Study Order
 
 ```
 1. SOLID Principles     → Foundation for ALL design patterns
 2. Observer Pattern     → Most common behavioral pattern
 3. Decorator Pattern    → Most common structural pattern
+4. Logging Framework    → Real LLD interview: combines 5+ patterns
 ```
 
 ---
