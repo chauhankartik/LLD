@@ -14,8 +14,9 @@ lld/
 ├── observer/           — Observer Pattern (behavioral)
 ├── state/              — State Pattern (behavioral)
 ├── facade/             — Facade Pattern (structural)
-├── logging_framework/  — LLD: Logging Framework (interview system design)
+├── logging_framework/  — LLD: Logging Framework
 ├── cache/              — LLD: In-Memory Cache with Eviction Policies
+├── parking_lot/        — LLD: Parking Lot System
 └── README.md           — This file
 ```
 
@@ -106,6 +107,28 @@ Classic Google/Amazon LLD interview question. Implements a production-grade in-m
 
 ---
 
+### 6. Parking Lot System LLD — `parking_lot/`
+
+Classic Google/Amazon LLD interview. Full parking lot with multi-floor, multi-vehicle, pluggable fees, payments, and thread-safe concurrent entry/exit.
+
+**Patterns:** Singleton, Strategy, Builder, Factory Method, Observer, State  
+**SOLID:** All 5 principles · **Thread Safety:** Per-spot ReentrantLock + ConcurrentHashMap  
+
+| File | Level | Focus |
+|---|---|---|
+| [00_Theory_and_Design.md](parking_lot/00_Theory_and_Design.md) | Theory | UML, vehicle-spot matrix, trade-off scripts, clarifying questions |
+| [01_Enums.java](parking_lot/01_Enums.java) | Core | VehicleType, SpotType, SpotState, PaymentStatus |
+| [02_Vehicle.java](parking_lot/02_Vehicle.java) | Core | Abstract Vehicle + Motorcycle, Car, Truck, ElectricCar + VehicleFactory |
+| [03_ParkingSpot.java](parking_lot/03_ParkingSpot.java) | Core | Abstract ParkingSpot + Compact, Large, Motorcycle, EV + SpotFactory |
+| [04_ParkingTicket.java](parking_lot/04_ParkingTicket.java) | Core | Immutable ParkingTicket (Builder) + ParkingReceipt value object |
+| [05_FeeStrategy.java](parking_lot/05_FeeStrategy.java) | Strategy | HourlyFee, FlatFee, TieredFee, WeekendFee (Decorator) |
+| [06_Payment.java](parking_lot/06_Payment.java) | Strategy | PaymentMethod interface + Cash, Card, UPI implementations |
+| [07_ParkingFloor.java](parking_lot/07_ParkingFloor.java) | Core | ParkingFloor (tryLock spot search) + Observer-notified DisplayBoard |
+| [08_ParkingLot.java](parking_lot/08_ParkingLot.java) | Singleton | ParkingLot (DCL Singleton + Builder) + entry/exit pipeline + exceptions |
+| [09_Demo.java](parking_lot/09_Demo.java) | Demo | 9 scenarios: park, unpark, vehicle types, duplicate, fees, concurrency |
+
+---
+
 ## 🗺️ Study Order
 
 ```
@@ -114,6 +137,7 @@ Classic Google/Amazon LLD interview question. Implements a production-grade in-m
 3. Decorator Pattern    → Most common structural pattern
 4. Logging Framework    → Real LLD interview: combines 5+ patterns
 5. In-Memory Cache      → Real LLD interview: DSA meets OOD (LRU/LFU/FIFO)
+6. Parking Lot System   → Real LLD interview: full system with multiple entities
 ```
 
 ---
