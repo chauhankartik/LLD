@@ -15,6 +15,7 @@ lld/
 ├── state/              — State Pattern (behavioral)
 ├── facade/             — Facade Pattern (structural)
 ├── logging_framework/  — LLD: Logging Framework (interview system design)
+├── cache/              — LLD: In-Memory Cache with Eviction Policies
 └── README.md           — This file
 ```
 
@@ -84,6 +85,27 @@ Classic Google/Amazon LLD interview question. Implements a Log4j-style logging f
 
 ---
 
+### 5. In-Memory Cache LLD — `cache/`
+
+Classic Google/Amazon LLD interview question. Implements a production-grade in-memory cache with pluggable eviction policies.
+
+**Patterns:** Strategy, Builder, Generic Types, Decorator (TTL), Null Object  
+**SOLID:** All 5 principles · **Thread Safety:** ReadWriteLock + AtomicLong  
+
+| File | Level | Focus |
+|---|---|---|
+| [00_Theory_and_Design.md](cache/00_Theory_and_Design.md) | Theory | UML, O(1) algorithm proofs, trade-off scripts, clarifying questions |
+| [01_CacheEntry.java](cache/01_CacheEntry.java) | Core | Generic immutable entry with TTL metadata + factory method |
+| [02_Interfaces.java](cache/02_Interfaces.java) | Core | `Cache<K,V>` + `EvictionPolicy<K>` interfaces (ISP, DIP) |
+| [03_LRUEvictionPolicy.java](cache/03_LRUEvictionPolicy.java) | Algorithm | O(1) LRU via sentinel DoublyLinkedList + HashMap |
+| [04_LFUEvictionPolicy.java](cache/04_LFUEvictionPolicy.java) | Algorithm | O(1) LFU via triple-map design (LeetCode 460) |
+| [05_FIFOEvictionPolicy.java](cache/05_FIFOEvictionPolicy.java) | Algorithm | FIFO via Queue + lazy removal trick |
+| [06_CacheStats.java](cache/06_CacheStats.java) | Metrics | Lock-free AtomicLong counters + hit rate computation |
+| [07_InMemoryCache.java](cache/07_InMemoryCache.java) | Core | Main impl: ReadWriteLock + lazy TTL + background sweeper + CacheBuilder |
+| [08_Demo.java](cache/08_Demo.java) | Demo | 8 scenarios: LRU, LFU, FIFO, TTL, sweeper, stats, concurrency, cache-aside |
+
+---
+
 ## 🗺️ Study Order
 
 ```
@@ -91,6 +113,7 @@ Classic Google/Amazon LLD interview question. Implements a Log4j-style logging f
 2. Observer Pattern     → Most common behavioral pattern
 3. Decorator Pattern    → Most common structural pattern
 4. Logging Framework    → Real LLD interview: combines 5+ patterns
+5. In-Memory Cache      → Real LLD interview: DSA meets OOD (LRU/LFU/FIFO)
 ```
 
 ---
