@@ -17,6 +17,7 @@ lld/
 ├── logging_framework/  — LLD: Logging Framework
 ├── cache/              — LLD: In-Memory Cache with Eviction Policies
 ├── parking_lot/        — LLD: Parking Lot System
+├── task_scheduler/     — LLD: OS Task Scheduler (FCFS/SJF/SRTF/RR/Priority/MLFQ)
 └── README.md           — This file
 ```
 
@@ -129,6 +130,26 @@ Classic Google/Amazon LLD interview. Full parking lot with multi-floor, multi-ve
 
 ---
 
+### 7. OS Task Scheduler LLD — `task_scheduler/`
+
+Design and simulate an OS CPU Scheduler. All 6 classic algorithms implemented with Gantt chart visualisation and comparative metrics.
+
+**Patterns:** Strategy, Builder, Template Method, Value Object  
+**OS Theory:** FCFS, SJF, SRTF, Round Robin, Priority (Aging), MLFQ  
+
+| File | Level | Focus |
+|---|---|---|
+| [00_Theory_and_Design.md](task_scheduler/00_Theory_and_Design.md) | Theory | Algorithm deep-dives, metrics formulae, UML, interview trade-offs |
+| [01_Enums.java](task_scheduler/01_Enums.java) | Core | ProcessState (5-state model), Priority, SchedulingPolicy |
+| [02_Process.java](task_scheduler/02_Process.java) | Core | PCB — all identity + runtime state fields, TAT/WT/RT formulae, Builder |
+| [03_SchedulingAlgorithm.java](task_scheduler/03_SchedulingAlgorithm.java) | Strategy | Interface + FCFS, SJF, SRTF, RoundRobin, Priority+Aging, MLFQ |
+| [04_GanttChart.java](task_scheduler/04_GanttChart.java) | Metrics | GanttChart (ASCII art) + SchedulingMetrics value object + report |
+| [05_Dispatcher.java](task_scheduler/05_Dispatcher.java) | Core | Context switch simulation, one-tick CPU execution, idle tracking |
+| [06_CPUScheduler.java](task_scheduler/06_CPUScheduler.java) | Engine | Discrete-time simulation loop + Builder; algorithm-agnostic |
+| [07_Demo.java](task_scheduler/07_Demo.java) | Demo | All 6 algorithms on same process set → Gantt + comparative table |
+
+---
+
 ## 🗺️ Study Order
 
 ```
@@ -138,6 +159,7 @@ Classic Google/Amazon LLD interview. Full parking lot with multi-floor, multi-ve
 4. Logging Framework    → Real LLD interview: combines 5+ patterns
 5. In-Memory Cache      → Real LLD interview: DSA meets OOD (LRU/LFU/FIFO)
 6. Parking Lot System   → Real LLD interview: full system with multiple entities
+7. OS Task Scheduler    → Real LLD interview: algorithms + simulation engine
 ```
 
 ---
